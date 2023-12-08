@@ -1,15 +1,19 @@
 package com.mkandirou.aftas.member;
 
 import com.mkandirou.aftas.hunting.Hunting;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Data
+@Entity
+@Table
+@NoArgsConstructor
+//@RequiredArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
