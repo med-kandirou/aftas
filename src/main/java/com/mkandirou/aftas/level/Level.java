@@ -15,7 +15,8 @@ import lombok.RequiredArgsConstructor;
 public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull private Integer code;
+    private Integer code;
     @NonNull private String decription;
     @NonNull private Integer points;
+
 }
