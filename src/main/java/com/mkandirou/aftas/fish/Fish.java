@@ -6,6 +6,7 @@ import com.mkandirou.aftas.level.Level;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -14,13 +15,14 @@ import java.util.List;
 @Entity
 @Table
 @NoArgsConstructor
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class Fish {
     @Id
     private String name;
-    private Double averageWeight;
+    @NonNull private Double averageWeight;
+
     @ManyToOne
-    private Level level;
+    @NonNull private Level level;
 
     @OneToMany
     private List<Hunting> huntings;

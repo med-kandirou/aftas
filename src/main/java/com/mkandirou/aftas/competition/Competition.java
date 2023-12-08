@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
@@ -18,16 +19,16 @@ import java.util.List;
 @Entity
 @Table
 @NoArgsConstructor
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class Competition {
     @Id
-    private String code;
-    private LocalDate date;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private LocalDateTime numberOfParticipants;
-    private String location;
-    private Double amount;
+    @NonNull private String code;
+    @NonNull private LocalDate date;
+    @NonNull private LocalDateTime startTime;
+    @NonNull private LocalDateTime endTime;
+    @NonNull private LocalDateTime numberOfParticipants;
+    @NonNull private String location;
+    @NonNull private Double amount;
 
     @OneToMany
     private List<Hunting> huntings;

@@ -3,6 +3,7 @@ package com.mkandirou.aftas.level;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 
@@ -10,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table
 @NoArgsConstructor
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer code;
-    private String decription;
-    private Integer points;
+    @NonNull private Integer code;
+    @NonNull private String decription;
+    @NonNull private Integer points;
 }

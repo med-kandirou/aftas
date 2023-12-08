@@ -6,6 +6,7 @@ import com.mkandirou.aftas.member.Member;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 
@@ -13,16 +14,16 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table
 @NoArgsConstructor
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class Hunting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer numberOfFish;
+    @NonNull private Integer numberOfFish;
     @ManyToOne
-    private Fish fish;
+    @NonNull private Fish fish;
     @ManyToOne
-    private Member member;
+    @NonNull private Member member;
     @ManyToOne
-    private Competition competition;
+    @NonNull private Competition competition;
 }
