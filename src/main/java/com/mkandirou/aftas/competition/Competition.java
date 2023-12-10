@@ -26,7 +26,7 @@ public class Competition {
     @NonNull private LocalDate date;
     @NonNull private LocalDateTime startTime;
     @NonNull private LocalDateTime endTime;
-    @NonNull private LocalDateTime numberOfParticipants;
+    @NonNull private Integer numberOfParticipants;
     @NonNull private String location;
     @NonNull private Double amount;
 

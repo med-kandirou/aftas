@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class LevelDTOreq {
-    @NotNull(message = "code is required")
     private Integer code;
     @NotNull(message = "decription is required")
     @NotNull private String decription;

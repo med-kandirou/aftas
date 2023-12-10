@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/api/Fish")
+@RequestMapping(path = "/api/Level")
 public class LevelContoller {
     @Autowired
     private LevelService levelService;
