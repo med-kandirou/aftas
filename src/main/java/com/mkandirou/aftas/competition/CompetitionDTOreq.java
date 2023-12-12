@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
 public class CompetitionDTOreq {
-    @NotNull(message = "code is required")
     private String code;
     @NotNull(message = "date is required")
     private LocalDate date;
     @NotNull(message = "startTime is required")
-    private LocalDateTime startTime;
+    private LocalTime startTime;
     @NotNull(message = "endTime is required")
-    private LocalDateTime endTime;
+    private LocalTime endTime;
     @NotNull(message = "numberOfParticipants is required")
     private Integer numberOfParticipants;
     @NotNull(message = "location is required")
