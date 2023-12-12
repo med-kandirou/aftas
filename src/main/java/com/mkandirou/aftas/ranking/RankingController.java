@@ -24,6 +24,11 @@ public class RankingController {
         return new ResponseEntity<>(rankingService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(path = {"/byCompetition/{code}"})
+    public ResponseEntity<List<RankingDTOres>> findRankingByCompetitionCode(@PathVariable String code){
+        return new ResponseEntity<>(rankingService.findRankingByCompetitionCode(code), HttpStatus.OK);
+    }
+
     /*@GetMapping(path = {"{id}"})
     public ResponseEntity<RankingDTOres> findById(@PathVariable Integer id){
         return new ResponseEntity<>(rankingService.findById(id), HttpStatus.OK);
@@ -43,4 +48,6 @@ public class RankingController {
     public ResponseEntity<RankingDTOres> delete(@PathVariable Integer id){
         return new ResponseEntity<>(rankingService.deleteById(id), HttpStatus.OK);
     }*/
+
+
 }

@@ -81,4 +81,14 @@ public class RankingService implements IRanking{
                 .map(c -> modelMapper.map(c, RankingDTOres.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<RankingDTOres> findRankingByCompetitionCode(String code) {
+        competitionRepository.findById(code)
+                .orElseThrow(() -> new ResourceNotFoundException("code competition: " + code));
+        List<Ranking> rankings = rankingRepository.findRankingByCompetitionCode(code);
+        return rankings.stream()
+                .map(c -> modelMapper.map(c, RankingDTOres.class))
+                .collect(Collectors.toList());
+    }
 }
