@@ -16,7 +16,7 @@ public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer code;
-    @NonNull private String decription;
+    @NonNull private String description;
     @NonNull private Integer points;
 
 }

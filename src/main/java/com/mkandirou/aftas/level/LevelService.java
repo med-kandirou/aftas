@@ -46,7 +46,7 @@ public class LevelService implements ILevel{
         Level level = levelRepository.findById(DTOreq.getCode())
                 .orElseThrow(() -> new ResourceNotFoundException("id level: " + DTOreq.getCode()));
         level.setPoints(DTOreq.getPoints());
-        level.setDecription(DTOreq.getDecription());
+        level.setDescription(DTOreq.getDescription());
         levelRepository.save(level);
         return modelMapper.map(level, LevelDTOres.class);
     }

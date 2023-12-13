@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LevelDTOres {
     private Integer code;
-    private String decription;
+    private String description;
     private Integer points;
 }

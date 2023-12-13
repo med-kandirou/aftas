@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class LevelDTOreq {
     private Integer code;
     @NotNull(message = "decription is required")
-    @NotNull private String decription;
+    @NotNull private String description;
     @Min(value = 0,message = "points is required to be greather than 0")
     @NotNull private Integer points;
 }

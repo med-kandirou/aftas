@@ -46,18 +46,31 @@ public class HuntingService implements IHunting{
 
     @Override
     public HuntingDTOres save(HuntingDTOreq DTOreq) {
-        Hunting hunting= modelMapper.map(DTOreq, Hunting.class);
-        Fish fish = fishRepository.findById(DTOreq.getFish_name())
-                .orElseThrow(() -> new ResourceNotFoundException("name fish: " + DTOreq.getFish_name()));
-        Member member = memberRepository.findById(DTOreq.getMember_id())
-                .orElseThrow(() -> new ResourceNotFoundException("name member: " + DTOreq.getMember_id()));
-        Competition competition = competitionRepository.findById(DTOreq.getCompetition_code())
-                .orElseThrow(() -> new ResourceNotFoundException("code competition: " + DTOreq.getCompetition_code()));
-        hunting.setFish(fish);
-        hunting.setCompetition(competition);
-        hunting.setMember(member);
-        huntingRepository.save(hunting);
-        return modelMapper.map(hunting, HuntingDTOres.class);
+        Hunting existHunting = huntingRepository
+                .findByCompetitionCodeAndMemberNumAndFishName(
+                        DTOreq.getCompetition_code(),
+                        DTOreq.getMember_id(),
+                        DTOreq.getFish_name()
+                );
+        if(existHunting!=null){
+            existHunting.setNumberOfFish(existHunting.getNumberOfFish()+DTOreq.getNumberOfFish());
+            huntingRepository.save(existHunting);
+            return modelMapper.map(existHunting, HuntingDTOres.class);
+        }
+        else{
+            Hunting hunting= modelMapper.map(DTOreq, Hunting.class);
+            Fish fish = fishRepository.findById(DTOreq.getFish_name())
+                    .orElseThrow(() -> new ResourceNotFoundException("name fish: " + DTOreq.getFish_name()));
+            Member member = memberRepository.findById(DTOreq.getMember_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("name member: " + DTOreq.getMember_id()));
+            Competition competition = competitionRepository.findById(DTOreq.getCompetition_code())
+                    .orElseThrow(() -> new ResourceNotFoundException("code competition: " + DTOreq.getCompetition_code()));
+            hunting.setFish(fish);
+            hunting.setCompetition(competition);
+            hunting.setMember(member);
+            huntingRepository.save(hunting);
+            return modelMapper.map(hunting, HuntingDTOres.class);
+        }
     }
 
     @Override
