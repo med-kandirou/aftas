@@ -49,5 +49,11 @@ public class RankingController {
         return new ResponseEntity<>(rankingService.deleteById(id), HttpStatus.OK);
     }*/
 
+    @GetMapping("/calcule/{code}")
+    public ResponseEntity<List<RankingDTOres>> calcule(@PathVariable String code){
+        return new ResponseEntity<>(rankingService.calculePointbyCompetition(code), HttpStatus.OK);
+    }
+
+
 
 }

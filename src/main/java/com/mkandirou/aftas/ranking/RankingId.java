@@ -12,7 +12,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 public class RankingId implements Serializable {
-
     @ManyToOne
     private Member member;
     @ManyToOne

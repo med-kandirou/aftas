@@ -15,8 +15,4 @@ public class RankingDTOreq {
     private Integer rank;
     @NotNull(message = "score is required")
     private Integer score;
-    @NotNull(message = "member_num is required")
-    private Integer member_num;
-    @NotNull(message = "competition_code is required")
-    private String competition_code;
 }

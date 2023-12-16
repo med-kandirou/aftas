@@ -43,4 +43,9 @@ public class MemberController {
     public ResponseEntity<MemberDTOres> delete(@PathVariable Integer num){
         return new ResponseEntity<>(memberService.deleteById(num), HttpStatus.OK);
     }
+
+    @GetMapping(path = {"MemberNotExistInComp/{competitionCode}"})
+    public ResponseEntity<List<MemberDTOres>> MemberNotExistInComp(@PathVariable String competitionCode){
+        return new ResponseEntity<>(memberService.findMembersNotexistInComp(competitionCode), HttpStatus.OK);
+    }
 }

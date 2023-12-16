@@ -12,6 +12,4 @@ public class RankingDTOres {
     private RankingId rankingId;
     private Integer rank;
     private Integer score;
-    private Member member;
-    private Competition competition;
 }

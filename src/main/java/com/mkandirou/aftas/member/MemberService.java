@@ -63,4 +63,12 @@ public class MemberService implements IMember{
                 .map(f -> modelMapper.map(f, MemberDTOres.class))
                 .collect(Collectors.toList());
     }
+
+
+    public List<MemberDTOres> findMembersNotexistInComp(String competitionCode) {
+        List<Member> Members = memberRepository.findMembersNotInCompetition(competitionCode);
+        return Members.stream()
+                .map(member -> modelMapper.map(member, MemberDTOres.class))
+                .collect(Collectors.toList());
+    }
 }
