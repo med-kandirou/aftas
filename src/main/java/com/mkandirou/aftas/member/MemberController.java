@@ -48,4 +48,9 @@ public class MemberController {
     public ResponseEntity<List<MemberDTOres>> MemberNotExistInComp(@PathVariable String competitionCode){
         return new ResponseEntity<>(memberService.findMembersNotexistInComp(competitionCode), HttpStatus.OK);
     }
+
+    @GetMapping(path = {"find/{competitionCode}/{index}"})
+    public ResponseEntity<List<MemberDTOres>> findByNumOrNameOrFamilyName(@PathVariable String index,@PathVariable String competitionCode){
+        return new ResponseEntity<>(memberService.findByNumOrNameOrFamilyName(competitionCode,index), HttpStatus.OK);
+    }
 }

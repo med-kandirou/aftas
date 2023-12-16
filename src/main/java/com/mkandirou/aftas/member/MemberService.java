@@ -64,11 +64,19 @@ public class MemberService implements IMember{
                 .collect(Collectors.toList());
     }
 
-
+    @Override
     public List<MemberDTOres> findMembersNotexistInComp(String competitionCode) {
         List<Member> Members = memberRepository.findMembersNotInCompetition(competitionCode);
         return Members.stream()
                 .map(member -> modelMapper.map(member, MemberDTOres.class))
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<MemberDTOres> findByNumOrNameOrFamilyName(String codeComp,String index) {
+        List<Member> Members = memberRepository.findByNumOrNameOrFamilyName(index,codeComp);
+        return Members.stream()
+                .map(member -> modelMapper.map(member, MemberDTOres.class))
+                .collect(Collectors.toList());
+    }
+
 }
