@@ -50,7 +50,7 @@ public class RankingController {
     }*/
 
     @GetMapping("/calcule/{code}")
-    public ResponseEntity<List<RankingDTOres>> calcule(@PathVariable String code){
+    public ResponseEntity<Boolean> calcule(@PathVariable String code){
         return new ResponseEntity<>(rankingService.calculePointbyCompetition(code), HttpStatus.OK);
     }
 

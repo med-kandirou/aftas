@@ -101,7 +101,8 @@ public class RankingService implements IRanking{
                 .collect(Collectors.toList());
     }
 
-    public List<RankingDTOres> calculePointbyCompetition(String code) {
+    @Override
+    public Boolean calculePointbyCompetition(String code) {
         competitionRepository.findById(code)
                 .orElseThrow(() -> new ResourceNotFoundException("code competition: " + code));
         List<Hunting> huntings= huntingRepository.findByCompetitionCode(code);
@@ -127,8 +128,6 @@ public class RankingService implements IRanking{
             rankingRepository.save(rank);
             rankNumber++;
         }
-        return rankingRepository.findByRankingId_Competition_Code(code).stream()
-                .map(c -> modelMapper.map(c, RankingDTOres.class))
-                .collect(Collectors.toList());
+        return true;
     }
 }
