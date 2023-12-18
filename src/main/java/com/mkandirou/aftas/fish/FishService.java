@@ -72,5 +72,5 @@ public class FishService implements IFish{
                 .map(f -> modelMapper.map(f, FishDTOres.class))
                 .collect(Collectors.toList());
     }
-    
+
 }

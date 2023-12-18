@@ -81,6 +81,7 @@ public class HuntingService implements IHunting{
         return modelMapper.map(Hunting, HuntingDTOres.class);
     }
 
+
     @Override
     public HuntingDTOres update(HuntingDTOreq DTOreq) {
         Hunting hunting = huntingRepository.findById(DTOreq.getId())
@@ -106,4 +107,5 @@ public class HuntingService implements IHunting{
                 .map(c -> modelMapper.map(c, HuntingDTOres.class))
                 .collect(Collectors.toList());
     }
+    
 }
