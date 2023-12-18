@@ -48,6 +48,7 @@ public class CompetitionService implements ICompetition{
         return modelMapper.map(competition, CompetitionDTOres.class);
     }
 
+
     @Override
     public CompetitionDTOres update(CompetitionDTOreq DTOreq) {
         Competition competition = competitionRepository.findById(DTOreq.getCode())
@@ -74,5 +75,4 @@ public class CompetitionService implements ICompetition{
         }
         return competitions.map(c -> modelMapper.map(c, CompetitionDTOres.class));
     }
-
 }

@@ -79,6 +79,6 @@ public class MemberService implements IMember{
                 .map(member -> modelMapper.map(member, MemberDTOres.class))
                 .collect(Collectors.toList());
     }
-    
+
 
 }
