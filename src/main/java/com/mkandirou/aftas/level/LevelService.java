@@ -38,8 +38,6 @@ public class LevelService implements ILevel{
         return modelMapper.map(level, LevelDTOres.class);
     }
 
-
-
     @Override
     public LevelDTOres deleteById(Integer primarykey) {
         Level Level = levelRepository.findById(primarykey)
