@@ -107,5 +107,5 @@ public class HuntingService implements IHunting{
                 .map(c -> modelMapper.map(c, HuntingDTOres.class))
                 .collect(Collectors.toList());
     }
-    
+
 }

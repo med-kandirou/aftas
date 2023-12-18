@@ -71,6 +71,7 @@ public class MemberService implements IMember{
                 .map(member -> modelMapper.map(member, MemberDTOres.class))
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<MemberDTOres> findByNumOrNameOrFamilyName(String codeComp,String index) {
         List<Member> Members = memberRepository.findByNumOrNameOrFamilyName(index,codeComp);
@@ -78,5 +79,6 @@ public class MemberService implements IMember{
                 .map(member -> modelMapper.map(member, MemberDTOres.class))
                 .collect(Collectors.toList());
     }
+    
 
 }
