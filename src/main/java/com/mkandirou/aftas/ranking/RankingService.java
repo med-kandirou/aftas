@@ -1,9 +1,9 @@
 package com.mkandirou.aftas.ranking;
 
+import com.mkandirou.aftas.Exception.AddMemberException;
 import com.mkandirou.aftas.Exception.ResourceNotFoundException;
 import com.mkandirou.aftas.competition.Competition;
 import com.mkandirou.aftas.competition.CompetitionRepository;
-import com.mkandirou.aftas.fish.FishRepository;
 import com.mkandirou.aftas.hunting.Hunting;
 import com.mkandirou.aftas.hunting.HuntingRepository;
 import com.mkandirou.aftas.member.Member;
@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,17 +55,31 @@ public class RankingService implements IRanking{
 
     @Override
     public RankingDTOres save(RankingDTOreq DTOreq) {
+
+
+
+
+
         Ranking ranking= modelMapper.map(DTOreq, Ranking.class);
         Member member = memberRepository.findById(DTOreq.getRankingId().getMember().getNum())
                 .orElseThrow(() -> new ResourceNotFoundException("num member: " + DTOreq.getRankingId().getMember().getNum()));
         Competition competition = competitionRepository.findById(DTOreq.getRankingId().getCompetition().getCode())
                 .orElseThrow(() -> new ResourceNotFoundException("code competition: " + DTOreq.getRankingId().getCompetition().getCode()));
-        RankingId rId=new RankingId();
-        rId.setCompetition(competition);
-        rId.setMember(member);
-        ranking.setRankingId(rId);
-        rankingRepository.save(ranking);
-        return modelMapper.map(ranking, RankingDTOres.class);
+        int comparisonResult = LocalDate.now().compareTo(competition.getDate());
+        if(comparisonResult>0){
+            throw new AddMemberException("Date not available");
+        }
+        if(rankingRepository.countRankingsByCompetitionCode(competition.getCode())<competition.getNumberOfParticipants()){
+            RankingId rId=new RankingId();
+            rId.setCompetition(competition);
+            rId.setMember(member);
+            ranking.setRankingId(rId);
+            rankingRepository.save(ranking);
+            return modelMapper.map(ranking, RankingDTOres.class);
+        }
+        else{
+            throw new AddMemberException("the competition is full");
+        }
     }
 
     @Override
@@ -138,5 +153,5 @@ public class RankingService implements IRanking{
         }
         return true;
     }
-    
+
 }

@@ -41,4 +41,12 @@ public class GlobalExceptionHandler {
         errorResponse.put("recource already exist", ex.getMessage());
         return errorResponse;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(AddMemberException.class)
+    public Map<String, String> handlerDateException(AddMemberException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error in add member", ex.getMessage());
+        return errorResponse;
+    }
 }
