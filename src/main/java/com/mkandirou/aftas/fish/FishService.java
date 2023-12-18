@@ -51,6 +51,7 @@ public class FishService implements IFish{
         return modelMapper.map(fish, FishDTOres.class);
     }
 
+
     @Override
     public FishDTOres update(FishDTOreq DTOreq) {
         Fish fish = fishRepository.findById(DTOreq.getName())
@@ -63,6 +64,7 @@ public class FishService implements IFish{
         return modelMapper.map(fish, FishDTOres.class);
     }
 
+
     @Override
     public List<FishDTOres> findAll() {
         List<Fish> fishs = fishRepository.findAll();
@@ -70,4 +72,5 @@ public class FishService implements IFish{
                 .map(f -> modelMapper.map(f, FishDTOres.class))
                 .collect(Collectors.toList());
     }
+    
 }
