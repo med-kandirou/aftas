@@ -29,9 +29,16 @@ public class LevelService implements ILevel{
 
     @Override
     public LevelDTOres save(LevelDTOreq DTOreq) {
-        Level Level= modelMapper.map(DTOreq, Level.class);
-        return modelMapper.map(levelRepository.save(Level), LevelDTOres.class);
+        Level prevLevel = levelRepository.findFirstOneByCodeBefore(DTOreq.getCode()).orElse(null);
+        if (prevLevel != null && prevLevel.getPoints() >= DTOreq.getPoints()) {
+            throw new ResourceNotFoundException("Le nombre de points doit être supérieur à celui du niveau précédent (" + prevLevel.getCode() + ")");
+        }
+        Level level = modelMapper.map(DTOreq, Level.class);
+        level = levelRepository.save(level);
+        return modelMapper.map(level, LevelDTOres.class);
     }
+
+
 
     @Override
     public LevelDTOres deleteById(Integer primarykey) {
