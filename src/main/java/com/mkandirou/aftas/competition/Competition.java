@@ -1,10 +1,8 @@
 package com.mkandirou.aftas.competition;
 
 import com.mkandirou.aftas.hunting.Hunting;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.mkandirou.aftas.ranking.Ranking;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -31,6 +29,9 @@ public class Competition {
     @NonNull private String location;
     @NonNull private Double amount;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Hunting> huntings;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Ranking> rankings;
 }

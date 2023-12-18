@@ -40,7 +40,15 @@ public class RankingService implements IRanking{
     @Override
     public RankingDTOres findById(RankingId primarykey) {
         Ranking ranking = rankingRepository.findById(primarykey)
-                .orElseThrow(() -> new ResourceNotFoundException("num Member : " + primarykey));
+                .orElseThrow(() -> new ResourceNotFoundException("rankingId : " + primarykey));
+        Member member = memberRepository.findById(primarykey.getMember().getNum())
+                .orElseThrow(() -> new ResourceNotFoundException("num member: " + primarykey.getMember().getNum()));
+        Competition competition = competitionRepository.findById(primarykey.getCompetition().getCode())
+                .orElseThrow(() -> new ResourceNotFoundException("code competition: " + primarykey.getCompetition().getCode()));
+        RankingId rId=new RankingId();
+        rId.setCompetition(competition);
+        rId.setMember(member);
+        ranking.setRankingId(rId);
         return modelMapper.map(ranking, RankingDTOres.class);
     }
 

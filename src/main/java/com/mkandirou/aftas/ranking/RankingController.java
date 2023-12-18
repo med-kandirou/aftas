@@ -1,6 +1,8 @@
 package com.mkandirou.aftas.ranking;
 
 
+import com.mkandirou.aftas.competition.Competition;
+import com.mkandirou.aftas.member.Member;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,10 +31,29 @@ public class RankingController {
         return new ResponseEntity<>(rankingService.findRankingByCompetitionCode(code), HttpStatus.OK);
     }
 
-    /*@GetMapping(path = {"{id}"})
-    public ResponseEntity<RankingDTOres> findById(@PathVariable Integer id){
-        return new ResponseEntity<>(rankingService.findById(id), HttpStatus.OK);
-    }*/
+    @GetMapping("/{memberId}/{competitionCode}")
+    public ResponseEntity<RankingDTOres> findById(@PathVariable Integer memberId, @PathVariable String competitionCode){
+        RankingId rankingId = new RankingId();
+        Member member = new Member();
+        member.setNum(memberId);
+        rankingId.setMember(member);
+        Competition competition = new Competition();
+        competition.setCode(competitionCode);
+        rankingId.setCompetition(competition);
+        return new ResponseEntity<>(rankingService.findById(rankingId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{memberId}/{competitionCode}")
+    public ResponseEntity<RankingDTOres> delete(@PathVariable Integer memberId, @PathVariable String competitionCode){
+        RankingId rankingId = new RankingId();
+        Member member = new Member();
+        member.setNum(memberId);
+        rankingId.setMember(member);
+        Competition competition = new Competition();
+        competition.setCode(competitionCode);
+        rankingId.setCompetition(competition);
+        return new ResponseEntity<>(rankingService.deleteById(rankingId), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<RankingDTOres> save(@Valid @RequestBody RankingDTOreq RankingDTOreq){
@@ -44,10 +65,7 @@ public class RankingController {
         return new ResponseEntity<>(rankingService.update(RankingDTOreq), HttpStatus.OK);
     }
 
-    /*@DeleteMapping(path = {"{id}"})
-    public ResponseEntity<RankingDTOres> delete(@PathVariable Integer id){
-        return new ResponseEntity<>(rankingService.deleteById(id), HttpStatus.OK);
-    }*/
+
 
     @GetMapping("/calcule/{code}")
     public ResponseEntity<Boolean> calcule(@PathVariable String code){
