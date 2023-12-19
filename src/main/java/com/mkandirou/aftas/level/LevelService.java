@@ -10,14 +10,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class LevelService implements ILevel{
-    @Autowired
-    private LevelRepository levelRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final LevelRepository levelRepository;
 
-    public LevelService(LevelRepository levelRepository) {
+
+    private final ModelMapper modelMapper;
+
+    public LevelService(LevelRepository levelRepository,ModelMapper modelMapper) {
         this.levelRepository=levelRepository;
+        this.modelMapper=modelMapper;
     }
 
     @Override

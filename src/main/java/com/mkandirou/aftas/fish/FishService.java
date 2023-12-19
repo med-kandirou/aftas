@@ -15,16 +15,14 @@ import java.util.stream.Collectors;
 @Service
 public class FishService implements IFish{
 
-    @Autowired
-    private FishRepository fishRepository;
-    @Autowired
-    private LevelRepository levelRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final FishRepository fishRepository;
+    private final LevelRepository levelRepository;
+    private final ModelMapper modelMapper;
 
-    public FishService(FishRepository fishRepository,LevelRepository levelRepository) {
+    public FishService(FishRepository fishRepository,LevelRepository levelRepository,ModelMapper modelMapper) {
         this.fishRepository=fishRepository;
         this.levelRepository=levelRepository;
+        this.modelMapper=modelMapper;
     }
 
     @Override

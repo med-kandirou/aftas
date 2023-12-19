@@ -11,14 +11,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class MemberService implements IMember{
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository,ModelMapper modelMapper) {
         this.memberRepository=memberRepository;
+        this.modelMapper=modelMapper;
     }
 
     @Override

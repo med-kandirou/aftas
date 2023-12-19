@@ -2,26 +2,22 @@ package com.mkandirou.aftas.competition;
 
 import com.mkandirou.aftas.Exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CompetitionService implements ICompetition{
-    @Autowired
-    private CompetitionRepository competitionRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final CompetitionRepository competitionRepository;
+    private final ModelMapper modelMapper;
 
-    public CompetitionService(CompetitionRepository competitionRepository) {
+    public CompetitionService(CompetitionRepository competitionRepository, ModelMapper modelMapper) {
         this.competitionRepository=competitionRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override

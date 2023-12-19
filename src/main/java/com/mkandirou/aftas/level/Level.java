@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Level {
     @Id
-    private Integer code;
+    @NonNull private Integer code;
     @NonNull private String description;
     @NonNull private Integer points;
 

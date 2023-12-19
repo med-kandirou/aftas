@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Fish {
     @Id
-    private String name;
+    @NonNull private String name;
     @NonNull private Double averageWeight;
 
     @ManyToOne

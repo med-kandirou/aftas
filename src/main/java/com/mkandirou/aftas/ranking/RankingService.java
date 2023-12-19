@@ -23,22 +23,18 @@ import java.util.stream.Collectors;
 @Service
 public class RankingService implements IRanking{
 
-    @Autowired
-    private RankingRepository rankingRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private HuntingRepository huntingRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+    private final RankingRepository rankingRepository;
+    private final MemberRepository memberRepository;
+    private final CompetitionRepository competitionRepository;
+    private final HuntingRepository huntingRepository;
+    private final ModelMapper modelMapper;
 
-    public RankingService(RankingRepository rankingRepository,MemberRepository memberRepository, CompetitionRepository competitionRepository,HuntingRepository huntingRepository) {
+    public RankingService(RankingRepository rankingRepository,MemberRepository memberRepository, CompetitionRepository competitionRepository,HuntingRepository huntingRepository,ModelMapper modelMapper) {
         this.rankingRepository=rankingRepository;
         this.memberRepository=memberRepository;
         this.competitionRepository=competitionRepository;
         this.huntingRepository=huntingRepository;
+        this.modelMapper=modelMapper;
     }
 
     @Override

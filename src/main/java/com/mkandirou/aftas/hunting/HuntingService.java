@@ -18,23 +18,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class HuntingService implements IHunting{
-    @Autowired
-    private HuntingRepository huntingRepository;
-    @Autowired
-    private FishRepository fishRepository;
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final HuntingRepository huntingRepository;
+    private final FishRepository fishRepository;
+    private final MemberRepository memberRepository;
+    private final CompetitionRepository competitionRepository;
 
-    public HuntingService(HuntingRepository huntingRepository, FishRepository fishRepository, MemberRepository memberRepository, CompetitionRepository competitionRepository) {
+    private final ModelMapper modelMapper;
+
+    public HuntingService(HuntingRepository huntingRepository, FishRepository fishRepository, MemberRepository memberRepository, CompetitionRepository competitionRepository,ModelMapper modelMapper) {
         this.huntingRepository=huntingRepository;
         this.fishRepository=fishRepository;
         this.memberRepository=memberRepository;
         this.competitionRepository=competitionRepository;
+        this.modelMapper=modelMapper;
     }
 
     @Override
