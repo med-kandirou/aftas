@@ -8,6 +8,7 @@ class AftasApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

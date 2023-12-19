@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 public class RankingService implements IRanking{
@@ -55,12 +58,49 @@ public class RankingService implements IRanking{
 
     @Override
     public RankingDTOres save(RankingDTOreq DTOreq) {
-
-
-
-
-
         Ranking ranking= modelMapper.map(DTOreq, Ranking.class);
+        Member member = memberRepository.findById(DTOreq.getRankingId().getMember().getNum())
+                .orElseThrow(() -> new ResourceNotFoundException("num member: " + DTOreq.getRankingId().getMember().getNum()));
+        Competition competition = competitionRepository.findById(DTOreq.getRankingId().getCompetition().getCode())
+                .orElseThrow(() -> new ResourceNotFoundException("code competition: " + DTOreq.getRankingId().getCompetition().getCode()));
+        int comparisonResult = LocalDate.now().compareTo(competition.getDate());
+
+        LocalDateTime dateCompetition = LocalDateTime.of(competition.getDate().getYear(), competition.getDate().getMonth(), competition.getDate().getDayOfMonth(), competition.getStartTime().getHour(), competition.getStartTime().getMinute());
+        LocalDateTime currentTime = LocalDateTime.now();
+        long hoursDifference = ChronoUnit.HOURS.between(dateCompetition, currentTime);
+
+        if(comparisonResult>0){
+            throw new AddMemberException("Date not available");
+        }
+        if(Math.abs(hoursDifference) < 24){
+            throw new AddMemberException("Date must be before 24h from competition");
+        }
+        if(rankingRepository.countRankingsByCompetitionCode(competition.getCode())<competition.getNumberOfParticipants()){
+            RankingId rId=new RankingId();
+            rId.setCompetition(competition);
+            rId.setMember(member);
+            ranking.setRankingId(rId);
+            rankingRepository.save(ranking);
+            return modelMapper.map(ranking, RankingDTOres.class);
+        }
+        else{
+            throw new AddMemberException("the competition is full");
+        }
+    }
+
+
+    @Override
+    public RankingDTOres deleteById(RankingId primarykey) {
+        Ranking ranking = rankingRepository.findById(primarykey)
+                .orElseThrow(() -> new ResourceNotFoundException("id Member : " + primarykey));
+        rankingRepository.deleteById(primarykey);
+        return modelMapper.map(ranking, RankingDTOres.class);
+    }
+
+    @Override
+    public RankingDTOres update(RankingDTOreq DTOreq) {
+        Ranking ranking = rankingRepository.findById(DTOreq.getRankingId())
+                .orElseThrow(() -> new ResourceNotFoundException("id Ranking: " + DTOreq.getRankingId()));
         Member member = memberRepository.findById(DTOreq.getRankingId().getMember().getNum())
                 .orElseThrow(() -> new ResourceNotFoundException("num member: " + DTOreq.getRankingId().getMember().getNum()));
         Competition competition = competitionRepository.findById(DTOreq.getRankingId().getCompetition().getCode())
@@ -80,30 +120,6 @@ public class RankingService implements IRanking{
         else{
             throw new AddMemberException("the competition is full");
         }
-    }
-
-    @Override
-    public RankingDTOres deleteById(RankingId primarykey) {
-        Ranking ranking = rankingRepository.findById(primarykey)
-                .orElseThrow(() -> new ResourceNotFoundException("id Member : " + primarykey));
-        rankingRepository.deleteById(primarykey);
-        return modelMapper.map(ranking, RankingDTOres.class);
-    }
-
-    @Override
-    public RankingDTOres update(RankingDTOreq DTOreq) {
-        Ranking ranking = rankingRepository.findById(DTOreq.getRankingId())
-                .orElseThrow(() -> new ResourceNotFoundException("id Ranking: " + DTOreq.getRankingId()));
-        Member member = memberRepository.findById(DTOreq.getRankingId().getMember().getNum())
-                .orElseThrow(() -> new ResourceNotFoundException("num member: " + DTOreq.getRankingId().getMember().getNum()));
-        Competition competition = competitionRepository.findById(DTOreq.getRankingId().getCompetition().getCode())
-                .orElseThrow(() -> new ResourceNotFoundException("code competition: " + DTOreq.getRankingId().getCompetition().getCode()));
-        RankingId rId=new RankingId();
-        rId.setCompetition(competition);
-        rId.setMember(member);
-        ranking.setRankingId(rId);
-        rankingRepository.save(ranking);
-        return modelMapper.map(ranking, RankingDTOres.class);
     }
 
     @Override
