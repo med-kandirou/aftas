@@ -27,7 +27,7 @@ public class competitionConfig {
             Competition c6 = new Competition("tag-23-12-23", LocalDate.of(2023,12,23), LocalTime.of(16, 0),
                     LocalTime.of(18, 0), 45, "taghazout", 1100.0);
             Competition c7 = new Competition("ken-24-12-23", LocalDate.of(2023,12,24), LocalTime.of(8, 0),
-                    LocalTime.of(10, 0), 55, "kenitre", 1300.0);
+                    LocalTime.of(10, 0), 55, "kenitra", 1300.0);
 
 
             competitionRepository.saveAll(List.of(c1,c2,c3,c4,c5,c6,c7));

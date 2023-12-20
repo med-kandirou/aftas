@@ -1,7 +1,6 @@
 package com.mkandirou.aftas.member;
 
-import com.mkandirou.aftas.competition.Competition;
-import com.mkandirou.aftas.competition.CompetitionRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
